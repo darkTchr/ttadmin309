@@ -52,8 +52,8 @@ app.post('/authorizations', (req, res) => {
                             message:'无此用户,请注册'
                         })
                     }
-
                 }
+                conn.release();
             })
         })
     } else {
@@ -64,6 +64,45 @@ app.post('/authorizations', (req, res) => {
 
 })
 
+//注册
+
+//获取个人信息
+app.get('/user/profile',(req,res)=>{
+    //验证token
+    let Bearer = 'Bearer ey9.mLYitrKsn4E4KdtC8jU';
+    if(Bearer){
+        let token = Bearer.substring(7);
+        pool.getConnection(function (err,conn) {
+            let sql = `select * from users where token='${token}'`;
+            conn.query(sql,(err,result)=>{
+                if(err){
+                    res.json(err)
+                }else{
+                    if(result.length !== 0){
+                        console.log(result[0]);
+                        //找到数据啦
+                        res.json({
+                            status:666,
+                            message:'用户信息',
+                            data:result[0]
+                        })
+                    }else{
+                        res.status(403).json({
+                            message:'查无此人，非法访问'
+                        })
+                    }
+                }
+            })
+        })
+
+    }else{
+        res.status(403).json({
+            message:'token未传,非法访问'
+        })
+    }
+
+
+})
 
 app.listen(3031, () => {
     console.log('http://localhost:3031')
