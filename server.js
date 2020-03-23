@@ -49,7 +49,7 @@ app.post('/authorizations', (req, res) => {
                         })
                     }else{
                         res.status(999).json({
-                            message:'无此用户,请注册'
+                            message:'无此用户,请注册!!!!!!!'
                         })
                     }
                 }
@@ -65,11 +65,13 @@ app.post('/authorizations', (req, res) => {
 })
 
 //注册
+// 随机字符串 模拟token
 
 //获取个人信息
 app.get('/user/profile',(req,res)=>{
     //验证token
-    let Bearer = 'Bearer ey9.mLYitrKsn4E4KdtC8jU';
+    let Bearer = req.headers.authorization;
+    console.log(Bearer);
     if(Bearer){
         let token = Bearer.substring(7);
         pool.getConnection(function (err,conn) {

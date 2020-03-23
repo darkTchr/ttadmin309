@@ -8,6 +8,7 @@ function OptPool() {
     this.getPool = function () {
         if(this.flag){
             this.pool.on('connection',function (connection) {
+                //表示自增长字段每次递增的量，其默认值是1，取值范围是1 .. 65535
                 connection.query('SET SESSION auto_increment_increment=1');
                 this.flag = false;
             })
