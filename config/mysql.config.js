@@ -4,7 +4,7 @@ mysql = {
     user: 'root',
     password: '913126',
     database: 'ttadmin309',
-    multipleStatement: true//允许一次执行多条sql
+    multipleStatements: true//允许一次执行多条sql
 }
 
 module.exports = mysql
