@@ -166,10 +166,6 @@ app.get('/comments', (req, res) => {
 
 //更改评论状态
 
-// app.get('/comments/status',()=>{
-//     console.log(8888);
-// })
-
 app.put('/comments/status', (req, res) => {
     console.log(666);
     //接收你传过来的 唯一标识
@@ -314,7 +310,7 @@ app.put('/user/images/:target',(req,res)=>{
 
 // post 方法不是幂等的 , 创建子资源 , 导致多条相同的用户被创建 (id自动增长的唯一标识,并且没有做别的相同数据处理)
 // put 已经存在的做替换 , 如果没有就创建 , 一般都用来 局部更新
-// patch 新引入的  对put的补充  ,对一直资源的局部更新
+// patch 新引入的  对put的补充  ,对已知资源的局部更新
 app.patch('/user/profile',(req,res)=>{
     let {id , name ,mobile,intro , email } = req.body
     pool.getConnection(function (err,conn) {
